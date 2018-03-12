@@ -24,6 +24,11 @@ ARG PHP_UPSTREAM_PORT=9000
 RUN echo "upstream php-upstream { server ${PHP_UPSTREAM_CONTAINER}:${PHP_UPSTREAM_PORT}; }" > /etc/nginx/conf.d/upstream.conf \
     && rm /etc/nginx/conf.d/default.conf
 
+RUN mkdir -p /etc/ssl
+ADD ssl/dev.crt /etc/ssl/domain.crt
+ADD ssl/dev.key /etc/ssl/domain.key
+RUN chmod 0600 /etc/ssl/domain.crt /etc/ssl/domain.key
+
 CMD ["nginx"]
 
-EXPOSE 80 443
+EXPOSE 80

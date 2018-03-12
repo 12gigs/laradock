@@ -1,1 +1,1 @@
-* * * * * laradock php /var/www/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /bin/bash -c 'pgrep -xf "php /var/www/artisan queue:work --daemon" || php /var/www/artisan queue:work --daemon' >> /var/www/app/storage/logs/cron.log 2>&1

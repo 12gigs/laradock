@@ -137,6 +137,19 @@ RUN if [ ${INSTALL_MONGO} = true ]; then \
 ;fi
 
 #####################################
+# GeoIP:
+#####################################
+
+ARG INSTALL_GEOIP=false
+RUN if [ ${INSTALL_GEOIP} = true ]; then \
+    apt-get update && \
+    apt-get install libgeoip-dev geoip-database geoip-database-extra geoip-bin geoip-dbg -y && \
+    # Install the geoip extension
+    pecl install geoip && \
+    docker-php-ext-enable geoip \
+;fi
+
+#####################################
 # AMQP:
 #####################################
 
@@ -178,7 +191,6 @@ RUN if [ ${INSTALL_GMP} = true ]; then \
     # Install the GMP extension
 	apt-get update -yqq && \
 	apt-get install -y libgmp-dev && \
-	ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h && \
     docker-php-ext-install gmp \
 ;fi
 
@@ -329,25 +341,6 @@ RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
     pecl install imagick && \
     docker-php-ext-enable imagick \
 ;fi
-
-#####################################
-# IMAP:
-#####################################
-ARG INSTALL_IMAP=false
-ENV INSTALL_IMAP ${INSTALL_IMAP}
-RUN if [ ${INSTALL_IMAP} = true ]; then \
-    apt-get update && \
-    apt-get install -y libc-client-dev libkrb5-dev && \
-    rm -r /var/lib/apt/lists/* && \
-    docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
-    docker-php-ext-install imap \
-;fi
-
-#####################################
-# Check PHP version:
-#####################################
-
-RUN php -v | head -n 1 | grep -q "PHP 5.6."
 
 #
 #--------------------------------------------------------------------------
