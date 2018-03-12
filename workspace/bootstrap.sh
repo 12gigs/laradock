@@ -3,12 +3,6 @@
 # change to working directory
 cd /var/www
 
-# install java
-apt update && apt install -y openjdk-9-jre openjdk-9-jre-headless
-
-# install newman
-su -lc /bin/bash -c 'source .bashrc && npm install newman --global' laradock
-
 # create s3 bucket
 mc mb minio/server
 
@@ -28,4 +22,5 @@ php artisan migrate:refresh
 php artisan db:seed
 
 # postman unit tests
+# echo $(nslookup nginx | grep Address | tail -n 1 | cut -d " " -f 2) api.dev.sweepstakes.12gigs.com >> /etc/hosts
 # su -lc /bin/bash -c 'source .bashrc && newman run --environment dev --color --delay-request 1000 --reporters cli,html --iteration-count 1 --timeout-request 2500 /var/www/tests/postman.json' laradock

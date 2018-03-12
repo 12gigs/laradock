@@ -725,7 +725,7 @@ RUN if [ ${INSTALL_DUSK_DEPS} = true ]; then \
 USER root
 
 RUN apt-get update -yqq && \
-    apt-get -y install lsof telnet nano dnsutils iputils-ping
+    apt-get -y install lsof telnet nano dnsutils iputils-ping openjdk-9-jre openjdk-9-jre-headless
 
 USER laradock
 
