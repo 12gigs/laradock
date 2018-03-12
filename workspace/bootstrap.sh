@@ -20,7 +20,3 @@ php artisan migrate:refresh
 
 # seed database
 php artisan db:seed
-
-# postman unit tests
-# echo $(nslookup nginx | grep Address | tail -n 1 | cut -d " " -f 2) api.dev.sweepstakes.12gigs.com >> /etc/hosts
-# su -lc /bin/bash -c 'source .bashrc && newman run --environment dev --color --delay-request 1000 --reporters cli,html --iteration-count 1 --timeout-request 2500 /var/www/tests/postman.json' laradock
