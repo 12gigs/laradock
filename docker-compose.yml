@@ -146,7 +146,7 @@ services:
       depends_on:
         - php-fpm
       environment:
-        - HTTP_CHECK=HEAD /haproxy HTTP/1.1\r\nHost:\ api.dev.sweepstakes.12gigs.com
+        - HTTP_CHECK=HEAD /v1/haproxy HTTP/1.1\r\nHost:\ api.dev.sweepstakes.12gigs.com\r\nUser-Agent:\ SweepstakesInternalUserAgent
       networks:
         - frontend
         - backend
@@ -169,7 +169,7 @@ services:
       depends_on:
         - php-fpm
       environment:
-        - HTTP_CHECK=HEAD /haproxy HTTP/1.1\r\nHost:\ api.dev.sweepstakes.12gigs.com
+        - HTTP_CHECK=HEAD /v1/haproxy HTTP/1.1\r\nHost:\ api.dev.sweepstakes.12gigs.com\r\nUser-Agent:\ SweepstakesInternalUserAgent
       networks:
         - frontend
         - backend

@@ -727,6 +727,13 @@ USER root
 RUN apt-get update -yqq && \
     apt-get -y install lsof telnet nano dnsutils iputils-ping openjdk-9-jre openjdk-9-jre-headless
 
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get -y install nullmailer && \
+    echo "maildev" > /etc/nullmailer/remotes && \
+    echo "dev.sweepstakes.12gigs.com" > /etc/nullmailer/defaultdomain && \
+    echo "docker@dev.sweepstakes.12gigs.com" > /etc/nullmailer/adminaddr && \
+    sed -i 's/^exit 0$/\/etc\/init\.d\/nullmailer start\n\nexit 0\n/g' /etc/rc.local
+
 USER laradock
 
 RUN . /home/laradock/.nvm/nvm.sh && \
